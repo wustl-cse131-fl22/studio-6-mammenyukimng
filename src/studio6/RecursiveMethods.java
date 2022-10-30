@@ -13,8 +13,13 @@ public class RecursiveMethods {
 	 */
 	public static double geometricSum(int n) {
 		
-			// FIXME compute the geometric sum for the first n terms recursively
+		if(n == 0) {
 			return 0;
+		} else {
+			double sum = Math.pow(0.5,  n) + geometricSum(n-1);
+			return sum;
+		}
+			// FIXME compute the geometric sum for the first n terms recursively
 		
 	}
 
@@ -28,8 +33,12 @@ public class RecursiveMethods {
 	 */
 	public static int gcd(int p, int q) {
 		
+		if(q == 0) {
+			return p;
+		} else {
+			return gcd(q, p % q);
+		}
 			// FIXME compute the gcd of p and q using recursion
-			return 0;
 		
 	}
 
@@ -43,9 +52,25 @@ public class RecursiveMethods {
 	 */
 	public static int[] toReversed(int[] array) {
 		
-			// FIXME create a helper method that can recursively reverse the given array
-			return new int[0];
+		int[] result = new int[array.length];
+		if (array.length == 0) {
+			return result;
+		}
+		return reverse(array, result, 0);
 		
+			// FIXME create a helper method that can recursively reverse the given array
+		
+	}
+	
+	public static int[] reverse(int[]array, int[] result, int index)
+	{
+		if(index > array.length / 2) {
+			return result;
+		} else {
+			result[index] = array[array.length - 1 - index];
+			result[array.length - 1 - index] = array[index];
+			return reverse(array, result, index + 1);
+		}
 	}
 
 	/**
@@ -60,7 +85,15 @@ public class RecursiveMethods {
 	public static void circlesUponCircles(double xCenter, double yCenter, double radius,
 			double radiusMinimumDrawingThreshold) {
 		
+		
 		// FIXME
+		if (radius > radiusMinimumDrawingThreshold) {
+			StdDraw.circle(xCenter, yCenter, radius);
+			circlesUponCircles(xCenter + radius, yCenter, radius / 3.0, radiusMinimumDrawingThreshold);
+			circlesUponCircles(xCenter - radius, yCenter, radius / 3.0, radiusMinimumDrawingThreshold);
+			circlesUponCircles(xCenter, yCenter + radius, radius / 3.0, radiusMinimumDrawingThreshold);
+			circlesUponCircles(xCenter, yCenter - radius, radius / 3.0, radiusMinimumDrawingThreshold);
+		}
 	}
 
 }
